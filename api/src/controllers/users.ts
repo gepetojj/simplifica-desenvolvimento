@@ -49,25 +49,25 @@ export const AttUser = async (req: Request, res: Response) => {
       },
     });
 
-    if (foundUser) {
-      const data = await prisma.usuario.update({
-        where: {
-          id: idUserInt,
-        },
-        data: {
-          fullname,
-          username,
-          email,
-          turma,
-        },
-      });
-
-      return res
-        .status(200)
-        .json({ msg: 'Usuário atualizado com sucesso!', data });
-    } else {
+    if (!foundUser) {
       return res.status(404).json({ msg: 'Usuário não encontrado.' });
     }
+
+    const data = await prisma.usuario.update({
+      where: {
+        id: idUserInt,
+      },
+      data: {
+        fullname,
+        username,
+        email,
+        turma,
+      },
+    });
+
+    return res
+      .status(200)
+      .json({ msg: 'Usuário atualizado com sucesso!', data });
   } catch (error) {
     return res.status(500).json({
       msg: 'Servidor indisponível',
