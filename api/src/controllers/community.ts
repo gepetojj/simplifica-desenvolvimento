@@ -66,8 +66,6 @@ export const PostDuvida = async (req: Request, res: Response) => {
       return res.status(422).json({ msg: 'A descrição é obrigatória!' });
     if (!conteudo)
       return res.status(422).json({ msg: 'O conteúdo é obrigatório!' });
-    if (!descricao)
-      return res.status(422).json({ msg: 'A descrição é obrigatória!' });
 
     const duvidaData = await prisma.duvida.create({
       data: {
