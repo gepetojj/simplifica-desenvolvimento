@@ -28,13 +28,20 @@ app.get('/', (req, res) => {
   res.json({ msg: 'Olá, mundo!' });
 });
 
-app.use('/api/users/', userRouter);
-app.use('/api/auth', authRouter);
-app.use('/api/points', pointsRouter);
-app.use('/api/table', tableRanking);
-app.use('/api/content', content);
-app.use('/api/community', community);
-app.use('/api/aprender', aprender);
+// Utiliza Router do Express para agrupar rotas da API
+// Obs.: talvez seja melhor transferir para um arquivo separado
+
+const router = express.Router();
+
+router.use('/users', userRouter);
+router.use('/auth', authRouter);
+router.use('/points', pointsRouter);
+router.use('/table', tableRanking);
+router.use('/content', content);
+router.use('/community', community);
+router.use('/aprender', aprender);
+
+app.use('/api', router);
 
 Object.keys(require.cache).forEach(function (key) {
   delete require.cache[key];
